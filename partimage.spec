@@ -7,7 +7,7 @@ Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.1
-Release:	3
+Release:	4
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -54,11 +54,25 @@ few minutes.
 
 %description -l pl
 Narzêdzie Linuksowe do zapisywania partycji w skompresowanych plikach.
-Potrafi ono zapisywaæ partycje ext2, ReiserFS, NTFS, FAT16/32, HPFS,
-XFS, JFS, HFS, UFS. Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy
-mo¿e byæ podzielony na wiele mniejszych oraz kompresowany w formacie
-gzip/bzip2 w celu zaoszczêdzenia miejsca.
-
+Potrafi ono zapisywaæ partycje
+   - Ext2FS (linuksowy standard),
+   - ReiserFS (nowy, potê¿ny system plików z journalem),
+   - NTFS (system plików Windows NT),
+   - FAT16/32 (system plików DOS i Windows),
+   - HPFS (system plików OS/2),
+   - XFS (system plików z journalem IBM-a dla AIX),
+   - JFS (system plików z journalem SGI dla IRIX-a),
+   - HFS (hierarchiczny system plików dla MacOS),
+   - UFS (system plików *BSD, Solaris-a oraz NextStep-a).
+Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony na 
+wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu 
+zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu Linux/Windows
+w pojedyñczej operacji. W razie problemów (wirusy, b³êdy, awaria,...)
+nale¿y po prostu przywróciæ system i po kilku minutach ca³o¶æ jest znwy 
+sprawna. Jest to bardzo u¿yteczne, kiedy instalujesz to samo na wielu 
+maszynach: zainstaluj na jednej z nich, zrób obraz i przywróæ na
+pozosta³ych maszynach. Po pierwszej instalacji ka¿da nastêpna wymaga
+tylko kilku minut.
 
 %package server
 Summary:	Partimage server
@@ -74,10 +88,10 @@ Requires(postun):	/usr/sbin/userdel
 Requires(post,preun):/sbin/chkconfig
 
 %description server
-Server for Partimage. Very alpha stage, don't use it!
+Server for Partimage. Very alpha stage, don't use it!!
 
 %description server -l pl
-Server dla Partimage.
+Server dla Partimage. Nie u¿ywaj, bardzo wczesna wersja!!
 
 %prep
 %setup -q
