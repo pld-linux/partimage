@@ -15,6 +15,7 @@ Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
 # Source0-md5:	c52ca81f23876cf9baa0dfcaa44d52ac
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
+Patch0:		%{name}-debian.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -97,14 +98,14 @@ Server dla Partimage.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 rm -f missing
-%{__gettextize}
-%{__aclocal} -I macros
-%{__autoconf}
-%{__automake}
-
+#%%{__gettextize}
+#%%{__aclocal} -I macros
+#%%{__autoconf}
+#%%{__automake}
 %configure \
 	--enable-nls \
 	--without-included-gettext \
@@ -132,6 +133,8 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
+install -D partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
+install -D partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
 
 %find_lang %{name}
 
@@ -182,6 +185,7 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
 %attr(755,root,root) %{_sbindir}/partimage
+%{_mandir}/man1/*
 
 %files server
 %defattr(644,root,root,755)
@@ -190,3 +194,4 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
+%{_mandir}/man8/*
