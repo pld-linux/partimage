@@ -4,13 +4,13 @@ Name:		partimage
 Version:	0.3.5.3
 Release:	1
 License:	GPL
+Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://prdownloads.sourceforge.net/partimage/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am_ac-fixes.patch
 URL:		http://www.partimage.org/
-Vendor:		François Dupoux <fdupoux@partimage.org>
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	zlib-devel
 BuildRequires:	bzip2-devel
@@ -72,9 +72,6 @@ mv $RPM_BUILD_ROOT%{_datadir}/doc/%{name}/html .
 gzip -9nf AUTHORS BOOT* ChangeLog README THANKS TODO
 
 %find_lang %{name}
-
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
