@@ -90,10 +90,10 @@ Requires(postun):	/usr/sbin/userdel
 Requires(post,preun):/sbin/chkconfig
 
 %description server
-Server for Partimage. Very alpha stage, don't use it!!
+Server for Partimage. 
 
 %description server -l pl
-Server dla Partimage. Nie u¿ywaj, bardzo wczesna wersja!!
+Server dla Partimage.
 
 %prep
 %setup -q
