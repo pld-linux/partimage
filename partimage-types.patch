@@ -1,0 +1,36 @@
+--- partimage-0.6.1/src/client/fs/fs_xfs.h.orig	Mon Sep  2 16:30:34 2002
++++ partimage-0.6.1/src/client/fs/fs_xfs.h	Mon Sep  2 16:32:00 2002
+@@ -19,6 +19,7 @@
+ #define FS_XFS_H
+ 
+ #include <ctype.h>
++#include <stdint.h>
+ 
+ #include "partimage.h"
+ #include "common.h"
+@@ -99,14 +100,6 @@
+ #define	XFS_BTNUM_INO	((xfs_btnum_t)XFS_BTNUM_INOi)
+ 
+ #define	XFS_SB_MAGIC		0x58465342	// 'XFSB'
+-typedef signed char	__int8_t;
+-typedef unsigned char	__uint8_t;
+-typedef signed short int	__int16_t;
+-typedef unsigned short int	__uint16_t;
+-typedef signed int	__int32_t;
+-typedef unsigned int	__uint32_t;
+-typedef signed long long int	__int64_t;
+-typedef unsigned long long int	__uint64_t;
+ 
+ // POSIX Extensions
+ typedef unsigned char	uchar_t;
+@@ -149,8 +142,8 @@
+ typedef	__uint64_t	xfs_dfiloff_t;	// block number in a file 
+ typedef	__uint64_t	xfs_dfilblks_t;	// number of blocks in a file 
+ 
+-typedef unsigned long long  __u64; 
+-typedef signed long long    __s64; 
++typedef __uint64_t  __u64; 
++typedef __int64_t   __s64; 
+ 
+ typedef __u64	xfs_off_t;
+ //typedef __s32	xfs32_off_t;
