@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# partimaged   This shell script starts partimage server
+#
+# chkconfig: 345 56 44
+# description: This scripts starts partimage server \
+#              which allow to get partimage partition \
+#              images over network
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# [ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
+
+# See how we were called.
+case "$1" in
+  start)
+  	if [ ! -f /var/lock/subsys/partimaged ]; then
+		msg_starting partimaged
+		busy
+		/usr/sbin/partimaged -D -p13000
+		RETVAL=$?
+		deltext
+		if [ $RETVAL -eq 0 ]; then
+		    touch /var/lock/subsys/partimaged
+		    ok
+		else
+		    fail
+		    exit 1
+		fi
+	else
+		msg_Already_Running partimaged
+		exit 1
+	fi
+        ;;
+  stop)
+  	if [ -f /var/lock/subsys/partimaged ]; then
+		msg_stopping partimaged
+		killproc partimaged
+		rm -f /var/lock/subsys/partimaged >/dev/null 2>&1
+	else
+		msg_Not_Running partimaged
+		exit 1
+	fi
+        ;;
+
+  status)
+	status partimaged
+        ;;
+
+  restart|reload)
+        $0 stop
+        $0 start
+        ;;
+
+  *)
+        echo $"Usage: $0 {start|stop|status|restart}"
+        exit 1
+esac
+
+exit 0
