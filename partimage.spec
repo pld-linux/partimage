@@ -1,7 +1,7 @@
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Name:		partimage
-Version:	0.3.5.3
+Version:	0.3.6
 Release:	1
 License:	GPL
 Vendor:		François Dupoux <fdupoux@partimage.org>
@@ -9,7 +9,6 @@ Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://prdownloads.sourceforge.net/partimage/%{name}-%{version}.tar.gz
-Patch0:		%{name}-am_ac-fixes.patch
 URL:		http://www.partimage.org/
 BuildRequires:	e2fsprogs-devel
 BuildRequires:	zlib-devel
@@ -48,10 +47,9 @@ zaoszczêdzenia miejsca.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
-rm missing po/Makefile*
+rm missing
 gettextize --copy --force
 aclocal
 autoconf
