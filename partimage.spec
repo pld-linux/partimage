@@ -63,16 +63,16 @@ Potrafi ono zapisywaæ partycje
    - XFS (system plików z journalem IBM-a dla AIX),
    - JFS (system plików z journalem SGI dla IRIX-a),
    - HFS (hierarchiczny system plików dla MacOS),
-   - UFS (system plików *BSD, Solaris-a oraz NextStep-a).
-Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony na 
-wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu 
-zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu Linux/Windows
-w pojedyñczej operacji. W razie problemów (wirusy, b³êdy, awaria,...)
-nale¿y po prostu przywróciæ system i po kilku minutach ca³o¶æ jest znwy 
-sprawna. Jest to bardzo u¿yteczne, kiedy instalujesz to samo na wielu 
-maszynach: zainstaluj na jednej z nich, zrób obraz i przywróæ na
-pozosta³ych maszynach. Po pierwszej instalacji ka¿da nastêpna wymaga
-tylko kilku minut.
+   - UFS (system plików *BSD, Solarisa oraz NextStepa).
+Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony
+na wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
+zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
+Linux/Windows w pojedyñczej operacji. W razie problemów (wirusy,
+b³êdy, awaria...) nale¿y po prostu przywróciæ system i po kilku
+minutach ca³o¶æ jest znowy sprawna. Jest to bardzo u¿yteczne przy
+instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaæ na
+jednej z nich, zrobiæ obraz i przywróciæ na pozosta³ych maszynach. Po
+pierwszej instalacji ka¿da nastêpna wymaga tylko kilku minut.
 
 %package server
 Summary:	Partimage server
@@ -132,6 +132,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 
 %find_lang %{name}
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %pre server
 if [ -n "`/usr/bin/getgid partimag`" ]; then
 	if [ "`/usr/bin/getgid partimag`" != "%{_id}" ]; then
@@ -171,9 +174,6 @@ if [ "$1" = "0" ]; then
 	/usr/sbin/userdel partimag 2>/dev/null
 	/usr/sbin/groupdel partimag 2>/dev/null
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
