@@ -182,7 +182,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files server
 %defattr(644,root,root,755)
-%doc README.partimaged.gz
+%doc README.partimaged
 %attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
 %dir %{_sysconfdir}/partimaged
