@@ -17,10 +17,9 @@ Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-debian.patch
 URL:		http://www.partimage.org/
-BuildRequires:	automake
-BuildRequires:	autoconf
+#BuildRequires:	automake
+#BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
-BuildRequires:	e2fsprogs-devel
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	slang-devel
