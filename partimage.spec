@@ -57,7 +57,7 @@ first one, each installation is automatically made, and only require a
 few minutes.
 
 %description -l pl
-Narzêdzie Linuksowe do zapisywania partycji w skompresowanych plikach.
+Narzêdzie linuksowe do zapisywania partycji w skompresowanych plikach.
 Potrafi ono zapisywaæ partycje
   - Ext2FS (linuksowy standard),
   - ReiserFS (nowy, potê¿ny system plików z journalem),
