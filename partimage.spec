@@ -10,8 +10,6 @@ Release:	1
 License:	GPL
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
 Source0:	http://prdownloads.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
 Source1:	%{name}d.init
 URL:		http://www.partimage.org/
