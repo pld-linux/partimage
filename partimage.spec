@@ -7,7 +7,7 @@ Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.2
-Release:	1
+Release:	2
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -87,7 +87,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
-Requires(post,preun):/sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 
 %description server
 Server for Partimage.
@@ -113,7 +113,7 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig,/var/spool/partimage}
 
 %{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
@@ -191,6 +191,8 @@ fi
 %doc README.partimaged
 %attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/partimaged
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
+%attr(700,partimag,root) %dir /var/spool/partimage
 %{_mandir}/man8/*
