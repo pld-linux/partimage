@@ -144,7 +144,7 @@ fi
 if [ -f /var/lock/subsys/partimage ]; then
 	/etc/rc.d/init.d/partimage restart >&2
 else
-	echo "Run \"/etc/rc.d/init.d/partimage start\" to start partimage server." >&2
+	echo "Run \"/etc/rc.d/init.d/partimaged start\" to start partimage server." >&2
 fi
 
 %preun server
