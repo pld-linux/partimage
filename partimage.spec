@@ -6,18 +6,17 @@ Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.2
-Release:	4
+Version:	0.6.4
+Release:	1
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	c52ca81f23876cf9baa0dfcaa44d52ac
+# Source0-md5:	ee56df4a6be1f78f53dc48454655aa8a
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
-Patch0:		%{name}-debian.patch
-Patch1:		%{name}-types.patch
-Patch2:		%{name}-po.patch
+Patch0:		%{name}-types.patch
+Patch1:		%{name}-po.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 #BuildRequires:	autoconf
@@ -101,10 +100,10 @@ Server dla Partimage.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
+cp -f /usr/lib/rpm/mkinstalldirs .
 #rm -f missing
 #%%{__gettextize}
 #%%{__aclocal} -I macros
@@ -137,8 +136,8 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
-install -D partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
-install -D partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
+install -D debian/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
+install -D debian/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
 
 %find_lang %{name}
 
