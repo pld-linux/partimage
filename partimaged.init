@@ -15,7 +15,7 @@
 
 # Set defaults
 PORT=4025
-DESTDIR="/var/spool/partimaged"
+DESTDIR="/var/spool/partimage"
 
 # Get service config
 [ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged

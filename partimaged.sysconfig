@@ -10,7 +10,7 @@ PORT=4025
 DEBUGLEVEL=1
 
 # Directory where the images will be stored
-DESTDIR="/var/spool/partimaged"
+DESTDIR="/var/spool/partimage"
 
 # Set the chroot directory if you want the chroot jail to be used
 #CHROOTDIR=""
