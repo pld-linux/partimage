@@ -13,40 +13,37 @@
 # Get network config
 . /etc/sysconfig/network
 
+# Set defaults
+PORT=4025
+DESTDIR="/var/spool/partimaged"
+
 # Get service config
-[ -f /etc/sysconfig/portsentry ] && . /etc/sysconfig/portsentry
+[ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
 
 # Check that networking is up.
 if is_yes "${NETWORKING}"; then
-	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+	if [ ! -f /var/lock/subsys/network ]; then
 		msg_network_down partimaged
 		exit 1
 	fi
 else
-	exit 0
+        exit 0
 fi
 
-[ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
 
-RETVAL=0
 # See how we were called.
 case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/partimaged ]; then
-		if [ -z "${PORT}" ]; then
-			PORT=4025
-		fi
 		msg_starting partimaged
-		busy
-		/usr/sbin/partimaged -D -p${PORT}
+		OPTIONS="-D"
+		[ -n "$PORT" ] && OPTIONS="$OPTIONS --port $PORT"
+		[ -n "$DEBUGLEVEL" ] && OPTIONS="$OPTIONS --debug $DEBUGLEVEL"
+		[ -n "$DESTDIR" ] && OPTIONS="$OPTIONS --dest $DESTDIR"
+		[ -n "$CHROOTDIR" ] && OPTIONS="$OPTIONS --chroot $CHROOTDIR"
+		daemon partimaged $OPTIONS
 		RETVAL=$?
-		if [ $RETVAL -eq 0 ]; then
-			ok
-			touch /var/lock/subsys/partimaged
-		else
-			RETVAL=1
-			fail
-		fi
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/partimaged
 	else
 		msg_already_running partimaged
 	fi
