@@ -5,7 +5,7 @@
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Name:		partimage
-Version:	0.7.0
+Version:	0.6.1
 Release:	1
 License:	GPL
 Vendor:		François Dupoux <fdupoux@partimage.org>
