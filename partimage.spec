@@ -23,6 +23,7 @@ BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
+BuildRequires:	rpmbuild(macros) >= 1.159
 BuildRequires:	slang-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -82,13 +83,15 @@ Summary:	Partimage server
 Summary(pl):	Serwer Partimage
 Group:		Applications/System
 Requires:	%{name} = %{version}
-Requires(pre):	/usr/bin/getgid
 Requires(pre):	/bin/id
+Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(post,preun):	/sbin/chkconfig
+Provides:	group(partimag)
+Provides:	user(partimag)
 
 %description server
 Server for Partimage.
@@ -151,7 +154,7 @@ if [ -n "`/usr/bin/getgid partimag`" ]; then
 		exit 1
 	fi
 else
-	/usr/sbin/groupadd -g %{_id} -r -f partimag
+	/usr/sbin/groupadd -g %{_id} partimag
 fi
 if [ -n "`/bin/id -u partimag 2>/dev/null`" ]; then
 	if [ "`/bin/id -u partimag`" != "%{_id}" ]; then
@@ -159,7 +162,7 @@ if [ -n "`/bin/id -u partimag 2>/dev/null`" ]; then
 		exit 1
 	fi
 else
-	/usr/sbin/useradd -u %{_id} -r -d %{_sysconfdir}/partimaged -s /bin/false -c "Partimage server" -g partimag partimag 1>&2
+	/usr/sbin/useradd -u %{_id} -d %{_sysconfdir}/partimaged -s /bin/false -c "Partimage server" -g partimag partimag 1>&2
 fi
 
 %post server
@@ -180,8 +183,8 @@ fi
 
 %postun server
 if [ "$1" = "0" ]; then
-	/usr/sbin/userdel partimag 2>/dev/null
-	/usr/sbin/groupdel partimag 2>/dev/null
+	%userremove partimag
+	%groupremove partimag
 fi
 
 %files -f %{name}.lang
