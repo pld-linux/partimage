@@ -7,7 +7,7 @@ Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.1
-Release:	4
+Release:	5
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -155,16 +155,16 @@ fi
 
 %post server
 /sbin/chkconfig --add partimaged
-if [ -f /var/lock/subsys/partimage ]; then
-	/etc/rc.d/init.d/partimage restart >&2
+if [ -f /var/lock/subsys/partimaged ]; then
+	/etc/rc.d/init.d/partimaged restart >&2
 else
 	echo "Run \"/etc/rc.d/init.d/partimaged start\" to start partimage server." >&2
 fi
 
 %preun server
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/partimage ]; then
-		/etc/rc.d/init.d/partimage stop >&2
+	if [ -f /var/lock/subsys/partimaged ]; then
+		/etc/rc.d/init.d/partimaged stop >&2
 	fi
 	/sbin/chkconfig --del partimaged
 fi
