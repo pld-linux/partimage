@@ -1,0 +1,35 @@
+Common subdirectories: partimage-0.6.2/po.orig/CVS and partimage-0.6.2/po/CVS
+Only in partimage-0.6.2/po.orig: ChangeLog~
+diff -u partimage-0.6.2/po.orig/de.po partimage-0.6.2/po/de.po
+--- partimage-0.6.2/po.orig/de.po	Mon Oct 14 19:46:55 2002
++++ partimage-0.6.2/po/de.po	Tue Aug  3 16:38:55 2004
+@@ -6,7 +6,6 @@
+ # Copyright (C) 2001 Free Software Foundation, Inc. 
+ # FIRST AUTHOR <daniel.mueller@free.fr>, 2001
+ #
+-#, fuzzy
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: PACKAGE VERSION\n"
+@@ -15,8 +14,8 @@
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
+-"Content-Transfer-Encoding: ENCODING\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/client/gui_text.cpp:56
+ msgid "Restore an MBR to the hard disk"
+diff -u partimage-0.6.2/po.orig/sk.po partimage-0.6.2/po/sk.po
+--- partimage-0.6.2/po.orig/sk.po	Mon Oct 14 19:49:10 2002
++++ partimage-0.6.2/po/sk.po	Tue Aug  3 16:40:08 2004
+@@ -3,7 +3,6 @@
+ # This file is distributed under the same license as the PACKAGE package.
+ # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+ # 
+-#, fuzzy
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: partimage 0.7.0\n"
