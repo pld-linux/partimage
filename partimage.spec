@@ -7,7 +7,7 @@ Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.2
-Release:	2
+Release:	3
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -16,8 +16,9 @@ Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-debian.patch
+Patch1:		%{name}-types.patch
 URL:		http://www.partimage.org/
-#BuildRequires:	automake
+BuildRequires:	automake
 #BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
@@ -98,9 +99,11 @@ Server dla Partimage.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-rm -f missing
+cp -f /usr/share/automake/config.sub .
+#rm -f missing
 #%%{__gettextize}
 #%%{__aclocal} -I macros
 #%%{__autoconf}
