@@ -6,14 +6,14 @@ Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.1
-Release:	6
+Version:	0.6.2
+Release:	1
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/partimage/%{name}-%{version}.tar.bz2
 Source1:	%{name}d.init
-Patch0:		%{name}-types.patch
+Source2:	%{name}d.sysconfig
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -96,7 +96,6 @@ Server dla Partimage. Nie u¿ywaj, bardzo wczesna wersja!!
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 rm -f missing
@@ -113,7 +112,7 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_sysconfdir}/partimaged,/etc/rc.d/init.d}
+install -d $RPM_BUILD_ROOT/{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig}
 
 %{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
@@ -131,6 +130,7 @@ cat > $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimagedusers << EOF
 EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
 
 %find_lang %{name}
 

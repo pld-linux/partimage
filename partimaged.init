@@ -10,23 +10,27 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-# [ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
+[ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
 
 # See how we were called.
 case "$1" in
   start)
   	if [ ! -f /var/lock/subsys/partimaged ]; then
+		if [ -z "${PORT}" ]; then
+			PORT=4025
+		fi
+
 		msg_starting partimaged
 		busy
-		/usr/sbin/partimaged -D -p13000
+		/usr/sbin/partimaged -D -p${PORT}
 		RETVAL=$?
 		deltext
 		if [ $RETVAL -eq 0 ]; then
-		    touch /var/lock/subsys/partimaged
-		    ok
+			touch /var/lock/subsys/partimaged
+			ok
 		else
-		    fail
-		    exit 1
+			fail
+			exit 1
 		fi
 	else
 		msg_Already_Running partimaged
