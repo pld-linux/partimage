@@ -10,7 +10,7 @@ Release:	2
 License:	GPL
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
-Source0:	http://prdownloads.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/partimage/%{name}-%{version}.tar.bz2
 Source1:	%{name}d.init
 URL:		http://www.partimage.org/
 BuildRequires:	automake
