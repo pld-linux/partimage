@@ -97,7 +97,7 @@ aclocal -I macros
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOTP{%{_sysconfdir}/partimaged,/etc/rc.d/init.d}
+install -d $RPM_BUILD_ROOT/{%{_sysconfdir}/partimaged,/etc/rc.d/init.d}
 
 %{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
