@@ -12,6 +12,7 @@ License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
+# Source0-md5:	c52ca81f23876cf9baa0dfcaa44d52ac
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 URL:		http://www.partimage.org/
