@@ -10,14 +10,14 @@ Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://prdownloads.sourceforge.net/partimage/%{name}-%{version}.tar.gz
 URL:		http://www.partimage.org/
-BuildRequires:	e2fsprogs-devel
-BuildRequires:	zlib-devel
-BuildRequires:	bzip2-devel
-BuildRequires:	newt-devel
-BuildRequires:	slang-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
+BuildRequires:	bzip2-devel
+BuildRequires:	e2fsprogs-devel
 BuildRequires:	gettext-devel
+BuildRequires:	newt-devel
+BuildRequires:	slang-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
