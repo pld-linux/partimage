@@ -91,7 +91,7 @@ Requires(postun):	/usr/sbin/userdel
 Requires(post,preun):/sbin/chkconfig
 
 %description server
-Server for Partimage. 
+Server for Partimage.
 
 %description server -l pl
 Server dla Partimage.
