@@ -4,10 +4,11 @@
 
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
+Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.1
-Release:	2
-License:	GPL
+Release:	3
+License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/partimage/%{name}-%{version}.tar.bz2
@@ -28,28 +29,28 @@ Linux/UNIX utility to save partitions in a compressed image file
 Partition Image is a Linux/UNIX partition imaging utility: it saves
 partitions in the:
 
-  - Ext2FS   (the Linux standard)
+  - Ext2FS (the Linux standard)
   - ReiserFS (a new, powerful journalling file system)
-  - NTFS     (Windows NT File System)
+  - NTFS (Windows NT File System)
   - FAT16/32 (DOS & Windows file systems)
-  - HPFS     (OS/2 File System)
-  - JFS      (IBM Jounalized File System for AIX)
-  - XFS      (SGI Jounalized File System for IRIX)
-  - HFS      (Hierarchical File System for MacOS)
-  - UFS      (*BSD, Solaris and NextStep file systems)
+  - HPFS (OS/2 File System)
+  - JFS (IBM Jounalized File System for AIX)
+  - XFS (SGI Jounalized File System for IRIX)
+  - HFS (Hierarchical File System for MacOS)
+  - UFS (*BSD, Solaris and NextStep file systems)
 
-file system formats to an image file. Only used blocks are copied.
-The image file can be compressed in the GZIP/BZIP2 formats to save
-disk space, and splitted into multiple files to be copied on amovibles
-floppies (ZIP for example), or burned on a CD-R ... This allows to 
-save a full Linux/Windows system, with an only operation. When 
+file system formats to an image file. Only used blocks are copied. The
+image file can be compressed in the GZIP/BZIP2 formats to save disk
+space, and splitted into multiple files to be copied on amovibles
+floppies (ZIP for example), or burned on a CD-R ... This allows to
+save a full Linux/Windows system, with an only operation. When
 problems (viruses, crash, error, ...), you just have to restore, and
 after several minutes, all your system is restored (boot, files, ...),
 and fully working. This is very useful when installing the same
 software on many machines: just install one of them, create an image,
 and just restore the image on all other machines. Then, after the
-first one, each installation is automatically made, and only require
-a few minutes.
+first one, each installation is automatically made, and only require a
+few minutes.
 
 %description -l pl
 Narzêdzie Linuksowe do zapisywania partycji w skompresowanych plikach.
@@ -70,7 +71,7 @@ Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
-Requires(post,preun):	/sbin/chkconfig
+Requires(post,preun):/sbin/chkconfig
 
 %description server
 Server for Partimage. Very alpha stage, don't use it!
@@ -96,17 +97,15 @@ aclocal -I macros
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOTP{%{_sysconfdir}/partimaged,/etc/rc.d/init.d}
 
-%{__make} -C src \
+%{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
-	DESTDIR=$RPM_BUILD_ROOT \
-	install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C po \
-	DESTDIR=$RPM_BUILD_ROOT \
-	install
+%{__make} -C po install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/partimaged
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimagedusers << EOF
 #note, '#' intruduces comments
 #add only users allowed to connect to partimaged
@@ -114,10 +113,8 @@ cat > $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimagedusers << EOF
 
 #joe # user 'joe' is allowed to coonnect to partimaged
 EOF
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 
-gzip -9nf AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 
 %find_lang %{name}
 
@@ -136,7 +133,7 @@ if [ -n "`/bin/id -u partimag 2>/dev/null`" ]; then
 		exit 1
 	fi
 else
-	/usr/sbin/useradd -u %{_id} -r -d /etc/partimaged -s /bin/false -c "Partimage server" -g partimag partimag 1>&2
+	/usr/sbin/useradd -u %{_id} -r -d %{_sysconfdir}/partimaged -s /bin/false -c "Partimage server" -g partimag partimag 1>&2
 fi
 
 %post server
@@ -166,7 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc {AUTHORS,BOOT*,ChangeLog,README,THANKS,TODO,BUGS}.gz
+%doc AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
 %attr(755,root,root) %{_sbindir}/partimage
 
 %files server
