@@ -28,7 +28,7 @@ fi
 
 [ -f /etc/sysconfig/partimaged ] && . /etc/sysconfig/partimaged
 
-
+RETVAL=0
 # See how we were called.
 case "$1" in
   start)
@@ -41,14 +41,14 @@ case "$1" in
 		/usr/sbin/partimaged -D -p${PORT}
 		RETVAL=$?
 		if [ $RETVAL -eq 0 ]; then
-			touch /var/lock/subsys/partimaged
 			ok
+			touch /var/lock/subsys/partimaged
 		else
+			RETVAL=1
 			fail
 		fi
 	else
 		msg_already_running partimaged
-		exit 1
 	fi
 	;;
   stop)
@@ -58,19 +58,20 @@ case "$1" in
 		rm -f /var/lock/subsys/partimaged >/dev/null 2>&1
 	else
 		msg_not_running partimaged
-		exit 1
 	fi
 	;;
   status)
 	status partimaged
+	exit $?
 	;;
-  restart|reload)
+  restart|force-reload)
 	$0 stop
 	$0 start
+	exit $?
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
 esac
 
 exit $RETVAL
