@@ -58,15 +58,15 @@ few minutes.
 %description -l pl
 Narzêdzie Linuksowe do zapisywania partycji w skompresowanych plikach.
 Potrafi ono zapisywaæ partycje
-   - Ext2FS (linuksowy standard),
-   - ReiserFS (nowy, potê¿ny system plików z journalem),
-   - NTFS (system plików Windows NT),
-   - FAT16/32 (system plików DOS i Windows),
-   - HPFS (system plików OS/2),
-   - XFS (system plików z journalem IBM-a dla AIX),
-   - JFS (system plików z journalem SGI dla IRIX-a),
-   - HFS (hierarchiczny system plików dla MacOS),
-   - UFS (system plików *BSD, Solarisa oraz NextStepa).
+  - Ext2FS (linuksowy standard),
+  - ReiserFS (nowy, potê¿ny system plików z journalem),
+  - NTFS (system plików Windows NT),
+  - FAT16/32 (system plików DOS i Windows),
+  - HPFS (system plików OS/2),
+  - XFS (system plików z journalem IBM-a dla AIX),
+  - JFS (system plików z journalem SGI dla IRIX-a),
+  - HFS (hierarchiczny system plików dla MacOS),
+  - UFS (system plików *BSD, Solarisa oraz NextStepa).
 Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony
 na wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
 zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
@@ -114,7 +114,7 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig}
 
 %{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
