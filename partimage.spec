@@ -71,9 +71,9 @@ Potrafi ono zapisywaæ partycje
 Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony
 na wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
 zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
-Linux/Windows w pojedyñczej operacji. W razie problemów (wirusy,
+Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
 b³êdy, awaria...) nale¿y po prostu przywróciæ system i po kilku
-minutach ca³o¶æ jest znowy sprawna. Jest to bardzo u¿yteczne przy
+minutach ca³o¶æ jest znowu sprawna. Jest to bardzo u¿yteczne przy
 instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaæ na
 jednej z nich, zrobiæ obraz i przywróciæ na pozosta³ych maszynach. Po
 pierwszej instalacji ka¿da nastêpna wymaga tylko kilku minut.
