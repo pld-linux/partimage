@@ -1,12 +1,12 @@
 
-# (g)id for partimaged
-%define		_id		93
+# [ug]id for partimaged
+%define		_id		98
 
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Name:		partimage
 Version:	0.6.1
-Release:	1
+Release:	2
 License:	GPL
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -61,9 +61,16 @@ gzip/bzip2 w celu zaoszczêdzenia miejsca.
 
 %package server
 Summary:	Partimage server
-Summary(pl):	Partimage server
+Summary(pl):	Serwer Partimage
 Group:		Applications/System
 Requires:	%{name} = %{version}
+Requires(pre):	/usr/bin/getgid
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Requires(post,preun):	/sbin/chkconfig
 
 %description server
 Server for Partimage. Very alpha stage, don't use it!
@@ -75,7 +82,7 @@ Server dla Partimage.
 %setup -q
 
 %build
-rm missing
+rm -f missing
 gettextize --copy --force
 aclocal -I macros
 autoconf
@@ -99,8 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	install
 
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}/partimaged
-cat > $RPM_BUILD_ROOT/%{_sysconfdir}/partimaged/partimagedusers << EOF
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/partimaged
+cat > $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimagedusers << EOF
 #note, '#' intruduces comments
 #add only users allowed to connect to partimaged
 # (only one login per line)
@@ -149,7 +156,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun server
-if [ $1 = 0 ]; then
+if [ "$1" = "0" ]; then
 	/usr/sbin/userdel partimag 2>/dev/null
 	/usr/sbin/groupdel partimag 2>/dev/null
 fi
@@ -160,12 +167,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc {AUTHORS,BOOT*,ChangeLog,README,THANKS,TODO,BUGS}.gz
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/partimage
 
 %files server
 %defattr(644,root,root,755)
 %doc README.partimaged.gz
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
