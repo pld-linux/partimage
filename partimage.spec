@@ -1,7 +1,3 @@
-
-# [ug]id for partimaged
-%define		_id		98
-
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
@@ -23,7 +19,7 @@ BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
-BuildRequires:	rpmbuild(macros) >= 1.159
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	slang-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -148,22 +144,8 @@ install -D debian/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
 rm -rf $RPM_BUILD_ROOT
 
 %pre server
-if [ -n "`/usr/bin/getgid partimag`" ]; then
-	if [ "`/usr/bin/getgid partimag`" != "%{_id}" ]; then
-		echo "Warning: group partimag hasn't gid=%{_id}. Correct this before installing partimage." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/groupadd -g %{_id} partimag
-fi
-if [ -n "`/bin/id -u partimag 2>/dev/null`" ]; then
-	if [ "`/bin/id -u partimag`" != "%{_id}" ]; then
-		echo "Warning: user partimag hasn't uid=%{_id}. Corrent this before installing partimage." 1>&2
-		exit 1
-	fi
-else
-	/usr/sbin/useradd -u %{_id} -d %{_sysconfdir}/partimaged -s /bin/false -c "Partimage server" -g partimag partimag 1>&2
-fi
+%groupadd -P %{name}-server -g 98 partimag
+%useradd -P %{name}-server -u 98 -d %{_sysconfdir}/partimaged -s /bin/false -c "Partimage server" -g partimag partimag
 
 %post server
 /sbin/chkconfig --add partimaged
