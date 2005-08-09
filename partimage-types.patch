@@ -1,30 +1,7 @@
-diff -dur partimage-0.6.2.orig/src/client/fs/fs_afs.h partimage-0.6.2/src/client/fs/fs_afs.h
---- partimage-0.6.2.orig/src/client/fs/fs_afs.h	2001-10-07 15:35:52.000000000 +0200
-+++ partimage-0.6.2/src/client/fs/fs_afs.h	2004-01-15 13:41:17.481194781 +0100
-@@ -21,6 +21,7 @@
- #include "partimage.h"
- #include "fs_base.h"
- #include <asm/types.h>
-+#include <stdint.h>
- 
- // ================================================
- #define AFS_SUPERBLOCK_SIZE	1024
-@@ -30,8 +31,8 @@
- #define	SUPER_BLOCK_MAGIC3	0x15b6830e
- 
- // ================================================
--#define int32 long
--#define uint32 DWORD
-+#define int32 int32_t
-+#define uint32 uint32_t
- #define BlockRun_s DWORD
- 
- // ================================================
-Only in partimage-0.6.2/src/client/fs: fs_afs.h~
-diff -dur partimage-0.6.2.orig/src/client/fs/fs_jfs.h partimage-0.6.2/src/client/fs/fs_jfs.h
---- partimage-0.6.2.orig/src/client/fs/fs_jfs.h	2001-08-28 21:39:13.000000000 +0200
-+++ partimage-0.6.2/src/client/fs/fs_jfs.h	2004-01-15 13:44:14.076125483 +0100
-@@ -18,6 +18,7 @@
+diff -U 3 -H -d -r -N -- partimage-0.6.5_beta2.orig/src/client/fs/fs_jfs.h partimage-0.6.5_beta2/src/client/fs/fs_jfs.h
+--- partimage-0.6.5_beta2.orig/src/client/fs/fs_jfs.h	2005-05-22 11:12:56.000000000 +0200
++++ partimage-0.6.5_beta2/src/client/fs/fs_jfs.h	2005-08-09 13:22:50.000000000 +0200
+@@ -17,6 +17,7 @@
  #ifndef FS_JFS_H
  #define FS_JFS_H
  
@@ -32,9 +9,9 @@ diff -dur partimage-0.6.2.orig/src/client/fs/fs_jfs.h partimage-0.6.2/src/client
  #include "partimage.h"
  #include "common.h"
  #include "cbitmap.h"
-@@ -35,23 +36,23 @@
- #define JFS_MAGIC_STRING      "JFS1"  // Magic word: Version 1 
- #define  JFS_SUPER_MAGIC      0x3153464A
+@@ -34,14 +35,14 @@
+ #define JFS_MAGIC_STRING      "JFS1"  // Magic u16: Version 1 
+ #define JFS_SUPER_MAGIC       0x3153464A
  
 -#define int16 signed short int
 -#define uint16 unsigned short int
@@ -48,35 +25,17 @@ diff -dur partimage-0.6.2.orig/src/client/fs/fs_jfs.h partimage-0.6.2/src/client
 +#define uint16 uint16_t
 +#define int32 int32_t
 +#define uint32 uint32_t
-+#define int64  int64_t
-+#define uint64  uint64_t
-+#define int8  int8_t
-+#define uint8  uint8_t
++#define int64 int64_t
++#define uint64 uint64_t
++#define int8 int8_t
++#define uint8 uint8_t
  
--#define s16 signed short int
--#define u16 unsigned short int
--#define s32 signed long int
--#define u32 unsigned long int
--#define s64  signed long long int
--#define u64  unsigned long long int
--#define s8  signed char
--#define u8  unsigned char
-+#define s16 int16_t
-+#define u16 uint16_t
-+#define s32 int32_t
-+#define u32 uint32_t
-+#define s64 int64_t
-+#define u64 uint64_t
-+#define s8  int8_t
-+#define u8  uint8_t
- 
- void copyAndTransformDword(DWORD *dwDest, DWORD *dwSource, DWORD dwElemCount);
- 
-Only in partimage-0.6.2/src/client/fs: fs_jfs.h~
-diff -dur partimage-0.6.2.orig/src/client/fs/fs_ufs.h partimage-0.6.2/src/client/fs/fs_ufs.h
---- partimage-0.6.2.orig/src/client/fs/fs_ufs.h	2001-09-26 17:09:45.000000000 +0200
-+++ partimage-0.6.2/src/client/fs/fs_ufs.h	2004-01-15 13:44:41.230352502 +0100
-@@ -22,6 +22,7 @@
+ /*#define s16 signed short int
+ #define u16 unsigned short int
+diff -U 3 -H -d -r -N -- partimage-0.6.5_beta2.orig/src/client/fs/fs_ufs.h partimage-0.6.5_beta2/src/client/fs/fs_ufs.h
+--- partimage-0.6.5_beta2.orig/src/client/fs/fs_ufs.h	2005-05-22 11:12:56.000000000 +0200
++++ partimage-0.6.5_beta2/src/client/fs/fs_ufs.h	2005-08-09 13:24:28.000000000 +0200
+@@ -21,6 +21,7 @@
  #include "fs_base.h"
  
  #include <sys/types.h>
@@ -84,172 +43,3 @@ diff -dur partimage-0.6.2.orig/src/client/fs/fs_ufs.h partimage-0.6.2/src/client
  
  // ================================================
  // ================================================
-Only in partimage-0.6.2/src/client/fs: fs_ufs.h~
-diff -dur partimage-0.6.2.orig/src/client/fs/fs_xfs.h partimage-0.6.2/src/client/fs/fs_xfs.h
---- partimage-0.6.2.orig/src/client/fs/fs_xfs.h	2002-05-10 23:52:47.000000000 +0200
-+++ partimage-0.6.2/src/client/fs/fs_xfs.h	2004-01-15 13:39:21.339199240 +0100
-@@ -19,6 +19,7 @@
- #define FS_XFS_H
- 
- #include <ctype.h>
-+#include <stdint.h>
- 
- #include "partimage.h"
- #include "common.h"
-@@ -99,22 +100,6 @@
- #define	XFS_BTNUM_INO	((xfs_btnum_t)XFS_BTNUM_INOi)
- 
- #define	XFS_SB_MAGIC		0x58465342	// 'XFSB'
--typedef signed char	__int8_t;
--typedef unsigned char	__uint8_t;
--typedef signed short int	__int16_t;
--typedef unsigned short int	__uint16_t;
--typedef signed int	__int32_t;
--typedef unsigned int	__uint32_t;
--#ifdef __ia64__
--typedef signed long int	__int64_t;
--typedef unsigned long int	__uint64_t;
--#elif __alpha__
--typedef signed long int    __int64_t;
--typedef unsigned long int  __uint64_t;
--#else
--typedef signed long long int    __int64_t;
--typedef unsigned long long int  __uint64_t;
--#endif
- 
- // POSIX Extensions
- typedef unsigned char	uchar_t;
-@@ -124,24 +109,24 @@
- 
- typedef enum { B_FALSE, B_TRUE } boolean_t;
- 
--typedef __uint32_t	xfs_agblock_t;	// blockno in alloc. group 
--typedef	__uint32_t	xfs_extlen_t;	// extent length in blocks 
--typedef	__uint32_t	xfs_agnumber_t;	// allocation group number 
--typedef __int32_t	xfs_extnum_t;	// # of extents in a file 
--typedef __int16_t	xfs_aextnum_t;	// # extents in an attribute fork 
--typedef	__int64_t	xfs_fsize_t;	// bytes in a file 
--typedef __uint64_t	xfs_ufsize_t;	// unsigned bytes in a file 
-+typedef uint32_t	xfs_agblock_t;	// blockno in alloc. group 
-+typedef	uint32_t	xfs_extlen_t;	// extent length in blocks 
-+typedef	uint32_t	xfs_agnumber_t;	// allocation group number 
-+typedef int32_t	xfs_extnum_t;	// # of extents in a file 
-+typedef int16_t	xfs_aextnum_t;	// # extents in an attribute fork 
-+typedef	int64_t	xfs_fsize_t;	// bytes in a file 
-+typedef uint64_t	xfs_ufsize_t;	// unsigned bytes in a file 
- 
--typedef	__int32_t	xfs_suminfo_t;	// type of bitmap summary info 
--typedef	__int32_t	xfs_rtword_t;	// word type for bitmap manipulations 
-+typedef	int32_t	xfs_suminfo_t;	// type of bitmap summary info 
-+typedef	int32_t	xfs_rtword_t;	// word type for bitmap manipulations 
- 
--typedef	__int64_t	xfs_lsn_t;	// log sequence number 
--typedef	__int32_t	xfs_tid_t;	// transaction identifier 
-+typedef	int64_t	xfs_lsn_t;	// log sequence number 
-+typedef	int32_t	xfs_tid_t;	// transaction identifier 
- 
--typedef	__uint32_t	xfs_dablk_t;	// dir/attr block number (in file) 
--typedef	__uint32_t	xfs_dahash_t;	// dir/attr hash value 
-+typedef	uint32_t	xfs_dablk_t;	// dir/attr block number (in file) 
-+typedef	uint32_t	xfs_dahash_t;	// dir/attr hash value 
- 
--typedef __uint16_t	xfs_prid_t;	// prid_t truncated to 16bits in XFS 
-+typedef uint16_t	xfs_prid_t;	// prid_t truncated to 16bits in XFS 
- 
- typedef struct 
- {
-@@ -151,31 +136,20 @@
- 
- // These types are 64 bits on disk but are either 32 or 64 bits in memory.
- // Disk based types:
--typedef __uint64_t	xfs_dfsbno_t;	// blockno in filesystem (agno|agbno) 
--typedef __uint64_t	xfs_drfsbno_t;	// blockno in filesystem (raw) 
--typedef	__uint64_t	xfs_drtbno_t;	// extent (block) in realtime area 
--typedef	__uint64_t	xfs_dfiloff_t;	// block number in a file 
--typedef	__uint64_t	xfs_dfilblks_t;	// number of blocks in a file 
--
--#ifdef __ia64__
--typedef unsigned long  __u64; 
--typedef signed long    __s64; 
--#elif __alpha__
--typedef unsigned long  __u64; 
--typedef signed long    __s64; 
--#else
--typedef unsigned long long  __u64; 
--typedef signed long long    __s64; 
--#endif
-+typedef uint64_t	xfs_dfsbno_t;	// blockno in filesystem (agno|agbno) 
-+typedef uint64_t	xfs_drfsbno_t;	// blockno in filesystem (raw) 
-+typedef	uint64_t	xfs_drtbno_t;	// extent (block) in realtime area 
-+typedef	uint64_t	xfs_dfiloff_t;	// block number in a file 
-+typedef	uint64_t	xfs_dfilblks_t;	// number of blocks in a file 
- 
--typedef __u64	xfs_off_t;
-+typedef uint64_t	xfs_off_t;
- //typedef __s32	xfs32_off_t;
--typedef __u64	xfs_ino_t;	// <inode> type 
--typedef __s64	xfs_daddr_t;	// <disk address> type 
-+typedef uint64_t	xfs_ino_t;	// <inode> type 
-+typedef int64_t	xfs_daddr_t;	// <disk address> type 
- typedef char *	xfs_caddr_t;	// <core address> type 
- typedef off_t	linux_off_t;
- //typedef __kernel_ino_t	linux_ino_t;
--typedef __uint32_t	xfs_dev_t;
-+typedef uint32_t	xfs_dev_t;
- 
- #define XFS_AGF_DADDR           (1)
- #define	XFS_AGFL_DADDR		(3)
-@@ -263,9 +237,9 @@
- 
- struct xfs_btree_sblock
- {
--  __uint32_t	bb_magic;	// magic number for block type 
--  __uint16_t	bb_level;	// 0 is a leaf 
--  __uint16_t	bb_numrecs;	// current # of data records 
-+  uint32_t	bb_magic;	// magic number for block type 
-+  uint16_t	bb_level;	// 0 is a leaf 
-+  uint16_t	bb_numrecs;	// current # of data records 
-   xfs_agblock_t	bb_leftsib;	// left sibling block or NULLAGBLOCK 
-   xfs_agblock_t	bb_rightsib;	// right sibling block or NULLAGBLOCK 
- };
-@@ -275,9 +249,9 @@
- // Combined header and structure, used by common code.
- typedef struct xfs_btree_hdr
- {
--  __uint32_t	bb_magic;	// magic number for block type 
--  __uint16_t	bb_level;	// 0 is a leaf 
--  __uint16_t	bb_numrecs;	// current # of data records 
-+  uint32_t	bb_magic;	// magic number for block type 
-+  uint16_t	bb_level;	// 0 is a leaf 
-+  uint16_t	bb_numrecs;	// current # of data records 
- } xfs_btree_hdr_t;
- 
- typedef struct xfs_btree_block
-@@ -330,19 +304,19 @@
- struct xfs_agf
- {
-   // Common allocation group header information
--  __uint32_t	agf_magicnum;	// magic number == XFS_AGF_MAGIC 
--  __uint32_t	agf_versionnum;	// header version == XFS_AGF_VERSION 
-+  uint32_t	agf_magicnum;	// magic number == XFS_AGF_MAGIC 
-+  uint32_t	agf_versionnum;	// header version == XFS_AGF_VERSION 
-   xfs_agnumber_t	agf_seqno;	// sequence # starting from 0 
-   xfs_agblock_t	agf_length;	// size in blocks of a.g. 
- 
-   // Freespace information
-   xfs_agblock_t	agf_roots[XFS_BTNUM_AGF];	// root blocks 
--  __uint32_t	agf_spare0;	// spare field 
--  __uint32_t	agf_levels[XFS_BTNUM_AGF];	// btree levels 
--  __uint32_t	agf_spare1;	// spare field 
--  __uint32_t	agf_flfirst;	// first freelist block's index 
--  __uint32_t	agf_fllast;	// last freelist block's index 
--  __uint32_t	agf_flcount;	// count of blocks in freelist 
-+  uint32_t	agf_spare0;	// spare field 
-+  uint32_t	agf_levels[XFS_BTNUM_AGF];	// btree levels 
-+  uint32_t	agf_spare1;	// spare field 
-+  uint32_t	agf_flfirst;	// first freelist block's index 
-+  uint32_t	agf_fllast;	// last freelist block's index 
-+  uint32_t	agf_flcount;	// count of blocks in freelist 
-   xfs_extlen_t	agf_freeblks;	// total free blocks 
-   xfs_extlen_t	agf_longest;	// longest free space 
- };
