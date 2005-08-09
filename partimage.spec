@@ -1,23 +1,23 @@
+%define		beta	beta2
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.4
-Release:	1
+Version:	0.6.5
+Release:	0.%{beta}.1
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	ee56df4a6be1f78f53dc48454655aa8a
+Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{beta}.tar.bz2
+# Source0-md5:	1280c10e661e2100a49019954e9e31cf
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-types.patch
-Patch1:		%{name}-po.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
-#BuildRequires:	autoconf
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	newt-devel
 BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	slang-devel
@@ -96,18 +96,12 @@ Server for Partimage.
 Server dla Partimage.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}_%{beta}
 %patch0 -p1
-%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
 cp -f /usr/lib/rpm/mkinstalldirs .
-#rm -f missing
-#%%{__gettextize}
-#%%{__aclocal} -I macros
-#%%{__autoconf}
-#%%{__automake}
 %configure \
 	--enable-nls \
 	--without-included-gettext \
@@ -135,8 +129,9 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
-install -D debian/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
-install -D debian/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
+install -D debian/man/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
+install -D debian/man/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
+install -D debian/man/partimagedusers.5 $RPM_BUILD_ROOT%{_mandir}/man5/partimagedusers.5
 
 %find_lang %{name}
 
@@ -184,4 +179,4 @@ fi
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
-%{_mandir}/man8/*
+%{_mandir}/man[58]/*
