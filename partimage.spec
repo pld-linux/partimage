@@ -4,7 +4,7 @@ Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.5
-Release:	0.%{beta}.1
+Release:	0.%{beta}.2
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
@@ -20,7 +20,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	newt-devel
 BuildRequires:	rpmbuild(macros) >= 1.202
-BuildRequires:	slang-devel
+BuildRequires:	slang-devel >= 2.0.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
