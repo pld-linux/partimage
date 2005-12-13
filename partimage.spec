@@ -175,7 +175,7 @@ fi
 %doc README.partimaged
 %attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/partimaged
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/partimaged
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
