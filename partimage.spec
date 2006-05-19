@@ -1,16 +1,16 @@
-%define		_beta	beta2
+%define		_beta	beta3
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.5
-%define		_rel 4
+%define		_rel 1
 Release:	0.%{_beta}.%{_rel}
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{_beta}.tar.bz2
-# Source0-md5:	1280c10e661e2100a49019954e9e31cf
+# Source0-md5:	ff97b3f00fa346fef20912b4f9db94c6
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-types.patch
@@ -130,9 +130,9 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
-install -D debian/man/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
-install -D debian/man/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
-install -D debian/man/partimagedusers.5 $RPM_BUILD_ROOT%{_mandir}/man5/partimagedusers.5
+install -D doc/en/man/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
+install -D doc/en/man/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
+install -D doc/en/man/partimagedusers.5 $RPM_BUILD_ROOT%{_mandir}/man5/partimagedusers.5
 
 %find_lang %{name}
 
