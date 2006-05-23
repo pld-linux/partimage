@@ -1,14 +1,15 @@
-%define		beta	beta2
+%define		_beta	beta2
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.5
-Release:	0.%{beta}.2
+%define		_rel 5
+Release:	0.%{_beta}.%{_rel}
 License:	GPL v2
 Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{beta}.tar.bz2
+Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{_beta}.tar.bz2
 # Source0-md5:	1280c10e661e2100a49019954e9e31cf
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
@@ -96,7 +97,7 @@ Server for Partimage.
 Server dla Partimage.
 
 %prep
-%setup -q -n %{name}-%{version}_%{beta}
+%setup -q -n %{name}-%{version}_%{_beta}
 %patch0 -p1
 
 %build
@@ -175,7 +176,7 @@ fi
 %doc README.partimaged
 %attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/partimaged
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/partimaged
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
