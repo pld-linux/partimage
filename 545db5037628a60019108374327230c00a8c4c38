@@ -1,0 +1,6 @@
+- updated to 0.6.0
+- updated and reorganized description
+- fixed rebuilding conf. files
+- added partimaged package + partimaged.init + pre/post* macros
+- rewritten %build and %files
+- STB
