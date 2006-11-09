@@ -1,13 +1,12 @@
 %define		_beta	beta3
+%define		_rel 6
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.5
-%define		_rel 6
 Release:	0.%{_beta}.%{_rel}
 License:	GPL v2
-Vendor:		François Dupoux <fdupoux@partimage.org>
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{_beta}.tar.bz2
 # Source0-md5:	ff97b3f00fa346fef20912b4f9db94c6
@@ -64,29 +63,29 @@ Potrafi ono zapisywaæ partycje
   - XFS (system plików z journalem IBM-a dla AIX),
   - JFS (system plików z journalem SGI dla IRIX-a),
   - HFS (hierarchiczny system plików dla MacOS),
-  - UFS (system plików *BSD, Solarisa oraz NextStepa).
-Kopiowane s± tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony
-na wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
-zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
-Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
-b³êdy, awaria...) nale¿y po prostu przywróciæ system i po kilku
-minutach ca³o¶æ jest znowu sprawna. Jest to bardzo u¿yteczne przy
-instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaæ na
-jednej z nich, zrobiæ obraz i przywróciæ na pozosta³ych maszynach. Po
-pierwszej instalacji ka¿da nastêpna wymaga tylko kilku minut.
+  - UFS (system plików *BSD, Solarisa oraz NextStepa). Kopiowane s±
+    tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony na wiele
+    mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
+    zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
+    Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
+    b³êdy, awaria...) nale¿y po prostu przywróciæ system i po kilku
+    minutach ca³o¶æ jest znowu sprawna. Jest to bardzo u¿yteczne przy
+    instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaæ na
+    jednej z nich, zrobiæ obraz i przywróciæ na pozosta³ych maszynach. Po
+    pierwszej instalacji ka¿da nastêpna wymaga tylko kilku minut.
 
 %package server
 Summary:	Partimage server
 Summary(pl):	Serwer Partimage
 Group:		Applications/System
-Requires:	%{name} = %{version}
+Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
 Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
-Requires(postun):	/usr/sbin/groupdel
-Requires(postun):	/usr/sbin/userdel
-Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name} = %{version}-%{release}
 Provides:	group(partimag)
 Provides:	user(partimag)
 
