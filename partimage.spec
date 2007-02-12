@@ -1,6 +1,6 @@
 Summary:	Utility to save partitions in a compressed image file
-Summary(pl):	Narzêdzie do zapisu partycji w skompresowanych plikach
-Summary(pt_BR):	Ferramenta para criar e restaurar backup de partições
+Summary(pl.UTF-8):   NarzÄ™dzie do zapisu partycji w skompresowanych plikach
+Summary(pt_BR.UTF-8):   Ferramenta para criar e restaurar backup de partiÃ§Ãµes
 Name:		partimage
 Version:	0.6.5
 Release:	1
@@ -50,31 +50,31 @@ and just restore the image on all other machines. Then, after the
 first one, each installation is automatically made, and only require a
 few minutes.
 
-%description -l pl
-Narzêdzie linuksowe do zapisywania partycji w skompresowanych plikach.
-Potrafi ono zapisywaæ partycje
+%description -l pl.UTF-8
+NarzÄ™dzie linuksowe do zapisywania partycji w skompresowanych plikach.
+Potrafi ono zapisywaÄ‡ partycje
   - Ext2FS (linuksowy standard),
-  - ReiserFS (nowy, potê¿ny system plików z journalem),
-  - NTFS (system plików Windows NT),
-  - FAT16/32 (system plików DOS i Windows),
-  - HPFS (system plików OS/2),
-  - XFS (system plików z journalem IBM-a dla AIX),
-  - JFS (system plików z journalem SGI dla IRIX-a),
-  - HFS (hierarchiczny system plików dla MacOS),
-  - UFS (system plików *BSD, Solarisa oraz NextStepa). Kopiowane s±
-    tylko u¿ywane bloki. Plik wyj¶ciowy mo¿e byæ podzielony na wiele
+  - ReiserFS (nowy, potÄ™Å¼ny system plikÃ³w z journalem),
+  - NTFS (system plikÃ³w Windows NT),
+  - FAT16/32 (system plikÃ³w DOS i Windows),
+  - HPFS (system plikÃ³w OS/2),
+  - XFS (system plikÃ³w z journalem IBM-a dla AIX),
+  - JFS (system plikÃ³w z journalem SGI dla IRIX-a),
+  - HFS (hierarchiczny system plikÃ³w dla MacOS),
+  - UFS (system plikÃ³w *BSD, Solarisa oraz NextStepa). Kopiowane sÄ…
+    tylko uÅ¼ywane bloki. Plik wyjÅ›ciowy moÅ¼e byÄ‡ podzielony na wiele
     mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
-    zaoszczêdzenia miejsca. Pozwala to na zapis ca³ego systemu
-    Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
-    b³êdy, awaria...) nale¿y po prostu przywróciæ system i po kilku
-    minutach ca³o¶æ jest znowu sprawna. Jest to bardzo u¿yteczne przy
-    instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaæ na
-    jednej z nich, zrobiæ obraz i przywróciæ na pozosta³ych maszynach. Po
-    pierwszej instalacji ka¿da nastêpna wymaga tylko kilku minut.
+    zaoszczÄ™dzenia miejsca. Pozwala to na zapis caÅ‚ego systemu
+    Linux/Windows w pojedynczej operacji. W razie problemÃ³w (wirusy,
+    bÅ‚Ä™dy, awaria...) naleÅ¼y po prostu przywrÃ³ciÄ‡ system i po kilku
+    minutach caÅ‚oÅ›Ä‡ jest znowu sprawna. Jest to bardzo uÅ¼yteczne przy
+    instalowaniu tego samego na wielu maszynach: wystarczy zainstalowaÄ‡ na
+    jednej z nich, zrobiÄ‡ obraz i przywrÃ³ciÄ‡ na pozostaÅ‚ych maszynach. Po
+    pierwszej instalacji kaÅ¼da nastÄ™pna wymaga tylko kilku minut.
 
 %package server
 Summary:	Partimage server
-Summary(pl):	Serwer Partimage
+Summary(pl.UTF-8):   Serwer Partimage
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
@@ -90,7 +90,7 @@ Provides:	user(partimag)
 %description server
 Server for Partimage.
 
-%description server -l pl
+%description server -l pl.UTF-8
 Server dla Partimage.
 
 %prep
