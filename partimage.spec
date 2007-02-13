@@ -1,6 +1,6 @@
 Summary:	Utility to save partitions in a compressed image file
-Summary(pl.UTF-8):   Narzędzie do zapisu partycji w skompresowanych plikach
-Summary(pt_BR.UTF-8):   Ferramenta para criar e restaurar backup de partições
+Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
+Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.5
 Release:	1
@@ -74,7 +74,7 @@ Potrafi ono zapisywać partycje
 
 %package server
 Summary:	Partimage server
-Summary(pl.UTF-8):   Serwer Partimage
+Summary(pl.UTF-8):	Serwer Partimage
 Group:		Applications/System
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
