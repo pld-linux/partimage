@@ -1,13 +1,20 @@
+# INFO:
+# This version works with x86_64. On older versions I get:
+# "Error: sizeof(DWORD) != 4 (8)
+# This version has been compiled with an uncompatible version of gcc."
+# More info: http://www.partimage.org/forums/viewtopic.php?t=713
+#
+%define		_beta beta1
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.6
-Release:	1
+Version:	0.6.7
+Release:	0.%{_beta}.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	abfa9fd02f3ab46bcc636eadf2308580
+Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{_beta}.tar.bz2
+# Source0-md5:	e7ea82145f2e860046e022350a3a3fbf
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-types.patch
@@ -94,7 +101,7 @@ Server for Partimage.
 Server dla Partimage.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}_%{_beta}
 #%patch0 -p1
 
 %build
