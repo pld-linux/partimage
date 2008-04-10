@@ -2,12 +2,12 @@ Summary:	Utility to save partitions in a compressed image file
 Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.6
+Version:	0.6.7
 Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	abfa9fd02f3ab46bcc636eadf2308580
+# Source0-md5:	1c13530b43ea5c368c1c2fd0ab36bddb
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Patch0:		%{name}-types.patch
@@ -126,9 +126,6 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
-install -D doc/en/man/partimage.1 $RPM_BUILD_ROOT%{_mandir}/man1/partimage.1
-install -D doc/en/man/partimaged.8 $RPM_BUILD_ROOT%{_mandir}/man8/partimaged.8
-install -D doc/en/man/partimagedusers.5 $RPM_BUILD_ROOT%{_mandir}/man5/partimagedusers.5
 
 %find_lang %{name}
 
@@ -165,7 +162,6 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
 %attr(755,root,root) %{_sbindir}/partimage
-%{_mandir}/man1/*
 
 %files server
 %defattr(644,root,root,755)
@@ -176,4 +172,3 @@ fi
 %dir %{_sysconfdir}/partimaged
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
-%{_mandir}/man[58]/*
