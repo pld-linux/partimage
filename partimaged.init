@@ -34,6 +34,7 @@ fi
 # See how we were called.
 case "$1" in
   init)
+	umask 077
         echo "Generating private key: /etc/partimaged/partimaged.key"
         openssl genrsa -out /etc/partimaged/partimaged.key 1024 \
 		&& chown partimag:root /etc/partimaged/partimaged.key \
