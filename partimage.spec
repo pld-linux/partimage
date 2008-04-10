@@ -3,16 +3,20 @@ Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.7
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
 # Source0-md5:	1c13530b43ea5c368c1c2fd0ab36bddb
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
+Source3:	%{name}d.pam
+Source4:	%{name}d-ssl.cnf
 Patch0:		%{name}-types.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
+BuildRequires:	pam-devel
+BuildRequires:	openssl-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
@@ -84,6 +88,7 @@ Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	%{name} = %{version}-%{release}
+Requires:	openssl-tools
 Provides:	group(partimag)
 Provides:	user(partimag)
 
@@ -102,12 +107,13 @@ cp -f /usr/share/automake/config.sub .
 cp -f /usr/lib/rpm/mkinstalldirs .
 rm -f po/stamp-po
 %configure \
-	--disable-ssl
+	--enable-pam \
+	--enable-ssl
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/partimaged,/etc/rc.d/init.d,/etc/sysconfig,/var/spool/partimage}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/{partimaged,pam.d},/etc/rc.d/init.d,/etc/sysconfig,/var/spool/partimage}
 
 %{__make} -C src install \
 	sysconfdir=$RPM_BUILD_ROOT%{_sysconfdir} \
@@ -126,6 +132,10 @@ EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/partimaged
+install %{SOURCE4} $RPM_BUILD_ROOT/etc/partimaged/partimaged.cnf
+
+touch $RPM_BUILD_ROOT/etc/partimaged/partimaged.{csr,cert,key}
 
 %find_lang %{name}
 
@@ -138,11 +148,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %post server
 /sbin/chkconfig --add partimaged
+if [ ! -s /etc/partimaged/partimaged.key -o ! -s /etc/partimaged/partimaged.cert ]; then
+	echo "Run \"/etc/rc.d/init.d/partimaged init\" to create self-signed SSL certificate." >&2
+fi
+
 if [ -f /var/lock/subsys/partimaged ]; then
 	/etc/rc.d/init.d/partimaged restart >&2
 else
 	echo "Run \"/etc/rc.d/init.d/partimaged start\" to start partimage server." >&2
 fi
+
+echo 
 
 %preun server
 if [ "$1" = "0" ]; then
@@ -168,7 +184,12 @@ fi
 %doc README.partimaged
 %attr(755,root,root) %{_sbindir}/partimaged
 %attr(754,root,root) /etc/rc.d/init.d/partimaged
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/partimaged
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/partimaged
 %dir %{_sysconfdir}/partimaged
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.cnf
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.csr
+%attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.key
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.cert
 %attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
