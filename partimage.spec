@@ -15,12 +15,12 @@ Source4:	%{name}d-ssl.cnf
 Patch0:		%{name}-types.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
-BuildRequires:	pam-devel
-BuildRequires:	openssl-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	newt-devel
+BuildRequires:	openssl-devel
+BuildRequires:	pam-devel
 BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	slang-devel >= 2.0.0
 BuildRequires:	zlib-devel
