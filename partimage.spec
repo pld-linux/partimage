@@ -193,5 +193,5 @@ fi
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.csr
 %attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.key
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.cert
-%attr(600,partimag,root) %config(noreplace) %{_sysconfdir}/partimaged/partimagedusers
+%attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
