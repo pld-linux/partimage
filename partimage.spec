@@ -12,10 +12,9 @@ Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}d.pam
 Source4:	%{name}d-ssl.cnf
-Patch0:		%{name}-types.patch
-Patch1:		%{name}-gcc43.patch
-Patch2:		%{name}-1056397.patch
-Patch3:		%{name}-fix_debug.patch
+Patch0:		%{name}-gcc43.patch
+Patch1:		%{name}-1056397.patch
+Patch2:		%{name}-fix_debug.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -103,10 +102,9 @@ Server dla Partimage.
 
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
