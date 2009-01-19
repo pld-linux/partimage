@@ -1,0 +1,13 @@
+--- partimage-0.6.7/src/client/misc.cpp.orig	2009-01-15 23:02:06.646830497 +0100
++++ partimage-0.6.7/src/client/misc.cpp	2009-01-15 23:23:39.058006022 +0100
+@@ -1922,8 +1922,8 @@
+     }
+   *nPartNum = atoi(cTemp);
+   
+-  showDebug(9, "entry found: %s %d %d %d %d\n", szDevice, nMajor, nMinor,
+-    nBlocks, nPartNum); 
++  showDebug(9, "entry found: %s %d %d %d %d\n", szDevice, *nMajor, *nMinor,
++    *nBlocks, *nPartNum); 
+  
+   return cPtr;
+ }
