@@ -108,7 +108,6 @@ Server dla Partimage.
 
 %build
 cp -f /usr/share/automake/config.sub .
-cp -f /usr/lib/rpm/mkinstalldirs .
 rm -f po/stamp-po
 %configure \
 	--enable-pam \
