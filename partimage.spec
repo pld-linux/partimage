@@ -2,20 +2,18 @@ Summary:	Utility to save partitions in a compressed image file
 Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.7
-Release:	5
+Version:	0.6.8
+Release:	1
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c13530b43ea5c368c1c2fd0ab36bddb
+# Source0-md5:	c13c8ede8cdf7745b97ec5827920ece7
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}d.pam
 Source4:	%{name}d-ssl.cnf
-Patch0:		%{name}-gcc43.patch
-Patch1:		%{name}-1056397.patch
-Patch2:		%{name}-fix_debug.patch
-Patch3:		%{name}-glibc.patch
+Patch0:		%{name}-fix_debug.patch
+Patch1:		%{name}-descr.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -105,8 +103,6 @@ Server dla Partimage.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
