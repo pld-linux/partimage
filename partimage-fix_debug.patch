@@ -1,6 +1,6 @@
---- partimage-0.6.7/src/client/misc.cpp.orig	2009-01-15 23:02:06.646830497 +0100
-+++ partimage-0.6.7/src/client/misc.cpp	2009-01-15 23:23:39.058006022 +0100
-@@ -1922,8 +1922,8 @@
+--- partimage-0.6.8/src/client/misc.cpp.old	2009-10-13 15:08:25.000000000 +0200
++++ partimage-0.6.8/src/client/misc.cpp	2009-10-13 15:09:02.000000000 +0200
+@@ -1923,8 +1923,8 @@
      }
    *nPartNum = atoi(cTemp);
    
