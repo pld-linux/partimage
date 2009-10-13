@@ -1,0 +1,63 @@
+--- partimage-0.6.8/src/client/main.cpp~	2009-09-24 19:49:45.000000000 +0000
++++ partimage-0.6.8/src/client/main.cpp	2009-10-13 16:57:56.000000000 +0000
+@@ -83,6 +83,7 @@
+   {"fully-batch", required_argument, NULL, 'B'},
+   {"nocheck", no_argument, NULL, 'c'},
+   {"nodesc", no_argument, NULL, 'd'},
++  {"description",required_argument, NULL, 'D'},
+   {"erase", no_argument, NULL, 'e'},
+   {"finish", required_argument, NULL, 'f'},
+   {"debug", required_argument, NULL, 'g'},
+@@ -110,7 +111,7 @@
+ 
+ static char finish_last_countfile_lock[]="/tmp/partimageXXXXXX.lock";
+ static char finish_last_countfile[]="/tmp/partimageXXXXXX";
+-static char optstring[]="z:oV:ecmdhf:s:p:bwg:vyLnSMa:iU:P:XB:";
++static char optstring[]="z:oV:ecmdhf:s:p:bwg:vynSMa:iU:P:XB:D:";
+ FILE * g_fDebug; // debug file
+ FILE * g_fLocalDebug; // debug file
+ CInterface * g_interface;
+@@ -313,6 +314,12 @@
+ 	  case 'd': // don't ask any description
+ 	    options.bAskDesc = false;
+ 	    break;
++
++	  case 'D': // description in batch mode
++	    strncpy(options.szDescription, optarg, MAX_DESCRIPTION);
++	    *(options.szDescription+MAX_DESCRIPTION-1) = '\0';
++	    options.bAskDesc = false;
++	    break;
+ 	  
+ 	  case 'h': // help
+ 	    usage();
+@@ -1002,6 +1009,7 @@
+ 	      "* -c,  --nocheck       don't check the partition before saving\n"
+ 	      "* -o,  --overwrite     overwrite the existing image file without confirmation\n"
+ 	      "* -d,  --nodesc        don't ask any description for the image file\n"
++	      "* -DX, --description=X set image description in batch mode\n"
+ 	      "* -V,  --volume        (split image into multiple volumes files)\n"
+ 	      "  -VX, --volume=X      create volumes with a size of X MB\n"
+ 	      "* -w,  --waitvol       wait for a confirmation after each volume change\n"
+--- partimage-0.6.8/src/client/misc.cpp~	2009-10-13 16:53:57.000000000 +0000
++++ partimage-0.6.8/src/client/misc.cpp	2009-10-13 17:00:51.000000000 +0000
+@@ -437,6 +437,10 @@
+       g_interface -> askDescription(headMain.szPartDescription,
+ 				    MAX_DESCRIPTION);
+     }
++  else if (strlen(options->szDescription)>0)
++    {
++      strcpy(headMain.szPartDescription,options->szDescription);
++    }
+ 
+   // bzip2 bug workaround
+   if ((options->dwCompression == COMPRESS_BZIP2) 
+--- partimage-0.6.8/src/shared/common.h~	2009-09-24 19:21:42.000000000 +0000
++++ partimage-0.6.8/src/shared/common.h	2009-10-13 17:02:59.000000000 +0000
+@@ -143,6 +143,7 @@
+   char szUserName[MAX_USERNAMELEN];
+   char szPassWord[MAX_PASSWORDLEN];
+   char szFullyBatchMode[2048];
++  char szDescription[MAX_DESCRIPTION];
+ };
+ 
+ #define MAX_UNAMEINFOLEN 65 //SYS_NMLN
