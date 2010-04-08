@@ -1,4 +1,4 @@
-%define	_beta	beta1
+%define	_beta	beta5
 Summary:	Utility to save partitions in a compressed image file
 Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
@@ -7,8 +7,8 @@ Version:	0.6.9
 Release:	0.%{_beta}.1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}_%{_beta}.tar.bz2
-# Source0-md5:	6d6f093cea89fec61b037db5d6eff7bb
+Source0:	http://beta.partimage.org/%{name}-%{version}_%{_beta}.tar.bz2
+# Source0-md5:	5e98f0694d79d54f1f76fa436b1e8fc2
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}d.pam
@@ -160,7 +160,7 @@ else
 	echo "Run \"/etc/rc.d/init.d/partimaged start\" to start partimage server." >&2
 fi
 
-echo 
+echo
 
 %preun server
 if [ "$1" = "0" ]; then
@@ -178,7 +178,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
+%doc AUTHORS ChangeLog README* THANKS BUGS
 %attr(755,root,root) %{_sbindir}/partimage
 
 %files server
