@@ -14,6 +14,7 @@ Source3:	%{name}d.pam
 Source4:	%{name}d-ssl.cnf
 Patch0:		%{name}-fix_debug.patch
 Patch1:		%{name}-descr.patch
+Patch2:		openssl.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -103,6 +104,7 @@ Server dla Partimage.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
