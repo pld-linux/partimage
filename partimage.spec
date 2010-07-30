@@ -2,19 +2,18 @@ Summary:	Utility to save partitions in a compressed image file
 Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
-Version:	0.6.8
-Release:	3
+Version:	0.6.9
+Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
-# Source0-md5:	c13c8ede8cdf7745b97ec5827920ece7
+Source0:	http://downloads.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
+# Source0-md5:	1bc046fd915c5debbafc85729464e513
 Source1:	%{name}d.init
 Source2:	%{name}d.sysconfig
 Source3:	%{name}d.pam
 Source4:	%{name}d-ssl.cnf
 Patch0:		%{name}-fix_debug.patch
 Patch1:		%{name}-descr.patch
-Patch2:		openssl.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
@@ -58,7 +57,7 @@ few minutes.
 
 %description -l pl.UTF-8
 Narzędzie linuksowe do zapisywania partycji w skompresowanych plikach.
-Potrafi ono zapisywać partycje
+Potrafi ono zapisywać partycje:
   - Ext2FS (linuksowy standard),
   - ReiserFS (nowy, potężny system plików z journalem),
   - NTFS (system plików Windows NT),
@@ -67,16 +66,17 @@ Potrafi ono zapisywać partycje
   - XFS (system plików z journalem IBM-a dla AIX),
   - JFS (system plików z journalem SGI dla IRIX-a),
   - HFS (hierarchiczny system plików dla MacOS),
-  - UFS (system plików *BSD, Solarisa oraz NextStepa). Kopiowane są
-    tylko używane bloki. Plik wyjściowy może być podzielony na wiele
-    mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
-    zaoszczędzenia miejsca. Pozwala to na zapis całego systemu
-    Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
-    błędy, awaria...) należy po prostu przywrócić system i po kilku
-    minutach całość jest znowu sprawna. Jest to bardzo użyteczne przy
-    instalowaniu tego samego na wielu maszynach: wystarczy zainstalować na
-    jednej z nich, zrobić obraz i przywrócić na pozostałych maszynach. Po
-    pierwszej instalacji każda następna wymaga tylko kilku minut.
+  - UFS (system plików *BSD, Solarisa oraz NextStepa).
+
+Kopiowane sątylko używane bloki. Plik wyjściowy może być podzielony na
+wiele mniejszych oraz kompresowany w formacie gzip/bzip2 w celu
+zaoszczędzenia miejsca. Pozwala to na zapis całego systemu
+Linux/Windows w pojedynczej operacji. W razie problemów (wirusy,
+błędy, awaria...) należy po prostu przywrócić system i po kilku
+minutach całość jest znowu sprawna. Jest to bardzo użyteczne przy
+instalowaniu tego samego na wielu maszynach: wystarczy zainstalować na
+jednej z nich, zrobić obraz i przywrócić na pozostałych maszynach. Po
+pierwszej instalacji każda następna wymaga tylko kilku minut.
 
 %package server
 Summary:	Partimage server
@@ -104,7 +104,6 @@ Server dla Partimage.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -130,15 +129,15 @@ cat > $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimagedusers << EOF
 #add only users allowed to connect to partimaged
 # (only one login per line)
 
-#joe # user 'joe' is allowed to coonnect to partimaged
+#joe # user 'joe' is allowed to connect to partimaged
 EOF
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/partimaged
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/partimaged
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/partimaged
-install %{SOURCE4} $RPM_BUILD_ROOT/etc/partimaged/partimaged.cnf
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimaged.cnf
 
-touch $RPM_BUILD_ROOT/etc/partimaged/partimaged.{csr,cert,key}
+touch $RPM_BUILD_ROOT%{_sysconfdir}/partimaged/partimaged.{csr,cert,key}
 
 %find_lang %{name}
 
@@ -161,7 +160,7 @@ else
 	echo "Run \"/etc/rc.d/init.d/partimaged start\" to start partimage server." >&2
 fi
 
-echo 
+echo
 
 %preun server
 if [ "$1" = "0" ]; then
@@ -179,7 +178,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BOOT* ChangeLog README* THANKS TODO BUGS
+%doc AUTHORS ChangeLog README* THANKS BUGS
 %attr(755,root,root) %{_sbindir}/partimage
 
 %files server
@@ -190,9 +189,9 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/partimaged
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/partimaged
 %dir %{_sysconfdir}/partimaged
-%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.cnf
-%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.csr
-%attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.key
-%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/partimaged/partimaged.cert
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimaged.cnf
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimaged.csr
+%attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimaged.key
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimaged.cert
 %attr(600,partimag,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/partimaged/partimagedusers
 %attr(700,partimag,root) %dir /var/spool/partimage
