@@ -1,0 +1,4 @@
+- updated to 0.6.9
+- merge with DEVEL
+- typo
+- openssl.patch is not longer needed
