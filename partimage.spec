@@ -18,7 +18,7 @@ Patch2:		%{name}-gzFile.patch
 URL:		http://www.partimage.org/
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libstdc++-devel
 BuildRequires:	newt-devel
 BuildRequires:	openssl-devel
