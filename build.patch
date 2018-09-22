@@ -1,0 +1,11 @@
+--- partimage-0.6.9/src/client/misc.h~	2018-09-22 16:20:57.000000000 +0200
++++ partimage-0.6.9/src/client/misc.h	2018-09-22 16:21:18.478570026 +0200
+@@ -36,7 +36,7 @@ struct COptions;
+ #endif
+ 
+ #ifndef makedev
+-  #define makedev(maj,min) (((maj) << 8) | min))
++  #define makedev(maj,min) (((maj) << 8) | min)
+ #endif
+ 
+ // =======================================================

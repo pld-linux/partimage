@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Narzędzie do zapisu partycji w skompresowanych plikach
 Summary(pt_BR.UTF-8):	Ferramenta para criar e restaurar backup de partições
 Name:		partimage
 Version:	0.6.9
-Release:	4
+Release:	5
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://downloads.sourceforge.net/partimage/%{name}-%{version}.tar.bz2
@@ -15,11 +15,16 @@ Source4:	%{name}d-ssl.cnf
 Patch0:		%{name}-fix_debug.patch
 Patch1:		%{name}-descr.patch
 Patch2:		%{name}-gzFile.patch
+Patch3:		02-openssl.patch
+Patch4:		03-openssl11.patch
+Patch5:		build.patch
 URL:		http://www.partimage.org/
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	gettext-tools
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	newt-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
@@ -106,10 +111,15 @@ Server dla Partimage.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
-cp -f /usr/share/automake/config.sub .
-rm -f po/stamp-po
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	--disable-silent-rules \
 	--enable-pam \
