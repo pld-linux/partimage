@@ -1,6 +1,7 @@
---- partimage-0.6.8/src/client/main.cpp~	2009-09-24 19:49:45.000000000 +0000
-+++ partimage-0.6.8/src/client/main.cpp	2009-10-13 16:57:56.000000000 +0000
-@@ -83,6 +83,7 @@
+diff -urNp -x '*.orig' partimage-0.6.9.org/src/client/main.cpp partimage-0.6.9/src/client/main.cpp
+--- partimage-0.6.9.org/src/client/main.cpp	2010-07-25 17:30:31.000000000 +0200
++++ partimage-0.6.9/src/client/main.cpp	2021-10-04 22:06:07.562637662 +0200
+@@ -83,6 +83,7 @@ static struct option const long_options[
    {"fully-batch", required_argument, NULL, 'B'},
    {"nocheck", no_argument, NULL, 'c'},
    {"nodesc", no_argument, NULL, 'd'},
@@ -8,7 +9,7 @@
    {"erase", no_argument, NULL, 'e'},
    {"finish", required_argument, NULL, 'f'},
    {"debug", required_argument, NULL, 'g'},
-@@ -110,7 +111,7 @@
+@@ -110,7 +111,7 @@ static struct option const long_options[
  
  static char finish_last_countfile_lock[]="/tmp/partimageXXXXXX.lock";
  static char finish_last_countfile[]="/tmp/partimageXXXXXX";
@@ -17,7 +18,7 @@
  FILE * g_fDebug; // debug file
  FILE * g_fLocalDebug; // debug file
  CInterface * g_interface;
-@@ -313,6 +314,12 @@
+@@ -324,6 +325,12 @@ int main(int argc, char *argv[])
  	  case 'd': // don't ask any description
  	    options.bAskDesc = false;
  	    break;
@@ -30,17 +31,18 @@
  	  
  	  case 'h': // help
  	    usage();
-@@ -1002,6 +1009,7 @@
+@@ -1013,6 +1020,7 @@ void usage()
  	      "* -c,  --nocheck       don't check the partition before saving\n"
  	      "* -o,  --overwrite     overwrite the existing image file without confirmation\n"
  	      "* -d,  --nodesc        don't ask any description for the image file\n"
 +	      "* -DX, --description=X set image description in batch mode\n"
  	      "* -V,  --volume        (split image into multiple volumes files)\n"
- 	      "  -VX, --volume=X      create volumes with a size of X MB\n"
+ 	      "  -VX, --volume=X      create volumes with a size of X MiB\n"
  	      "* -w,  --waitvol       wait for a confirmation after each volume change\n"
---- partimage-0.6.8/src/client/misc.cpp~	2009-10-13 16:53:57.000000000 +0000
-+++ partimage-0.6.8/src/client/misc.cpp	2009-10-13 17:00:51.000000000 +0000
-@@ -437,6 +437,10 @@
+diff -urNp -x '*.orig' partimage-0.6.9.org/src/client/misc.cpp partimage-0.6.9/src/client/misc.cpp
+--- partimage-0.6.9.org/src/client/misc.cpp	2021-10-04 22:06:07.452637694 +0200
++++ partimage-0.6.9/src/client/misc.cpp	2021-10-04 22:06:07.562637662 +0200
+@@ -437,6 +437,10 @@ void savePartition(char *szDevice, char
        g_interface -> askDescription(headMain.szPartDescription,
  				    MAX_DESCRIPTION);
      }
@@ -51,9 +53,10 @@
  
    // bzip2 bug workaround
    if ((options->dwCompression == COMPRESS_BZIP2) 
---- partimage-0.6.8/src/shared/common.h~	2009-09-24 19:21:42.000000000 +0000
-+++ partimage-0.6.8/src/shared/common.h	2009-10-13 17:02:59.000000000 +0000
-@@ -143,6 +143,7 @@
+diff -urNp -x '*.orig' partimage-0.6.9.org/src/shared/common.h partimage-0.6.9/src/shared/common.h
+--- partimage-0.6.9.org/src/shared/common.h	2010-07-25 17:30:31.000000000 +0200
++++ partimage-0.6.9/src/shared/common.h	2021-10-04 22:06:07.562637662 +0200
+@@ -143,6 +143,7 @@ struct COptions
    char szUserName[MAX_USERNAMELEN];
    char szPassWord[MAX_PASSWORDLEN];
    char szFullyBatchMode[2048];
